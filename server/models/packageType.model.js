@@ -1,7 +1,7 @@
 const packageType = (sequelize, DataTypes) => {
     const packageType = sequelize.define('package_type', {
         pack_name: {
-          type: DataTypes.STRING(10),
+          type: DataTypes.STRING(15),
           allowNull: false,
           primaryKey: true
         },
