@@ -19,18 +19,23 @@ const findOrad = async (req,res) => {
 
 const createOrad = async (req,res) =>{
     const { orad_publish_on, orad_finished_on, orad_bill_amount, orad_watr_numbers, orad_stat_name,orad_acco_id, orad_pack_name} = req.body;
-    const orad = await req.context.models.orad.create({
-      orad_created_on: Date.now(),
-      orad_publish_on: orad_publish_on,
-      orad_finished_on: orad_finished_on,
-      orad_bill_amount: Number(orad_bill_amount),
-      orad_watr_numbers : orad_watr_numbers,
-      orad_acco_id: orad_acco_id,
-      orad_stat_name: orad_stat_name,
-      orad_pack_name: orad_pack_name
-    });
-  
-    return res.send(orad);
+    try {
+      const orad = await req.context.models.orad.create({
+        orad_created_on: Date.now(),
+        orad_publish_on: orad_publish_on,
+        orad_finished_on: orad_finished_on,
+        orad_bill_amount: Number(orad_bill_amount),
+        orad_watr_numbers : orad_watr_numbers,
+        orad_acco_id: orad_acco_id,
+        orad_stat_name: orad_stat_name,
+        orad_pack_name: orad_pack_name
+      });
+    
+      return res.send(orad);
+    } catch (error) {
+      return res.send(error)
+    }
+    
 }
 const updateOrad = async (req, res) => {
   const { orad_publish_on, orad_finished_on, orad_bill_amount, orad_watr_numbers, orad_stat_name,orad_acco_id, orad_pack_name} = req.body;
