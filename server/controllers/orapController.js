@@ -21,7 +21,7 @@ const createOrap = async (req,res) =>{
         orap_total_amount: Number(orap_total_amount),
         orap_current_duration: Number(orap_current_duration),
         orap_current_amount: Number(orap_current_amount),
-        orap_orad_id: req.params.orap_id,
+        orap_orad_id: req.params.orad_id,
         orap_prod_id: orap_prod_id
       });
       return res.send(orap);
