@@ -1,11 +1,11 @@
 
 // findAll = select * from regions
 const findOrap = async (req,res) => {
-    if (req.params.orap_id){
-        const orap = await req.context.models.orap.findByPk(
-            req.params.orap_id,
-          );
-        return res.send(orap);
+  if (req.params.prod_id){
+      const orap = await req.context.models.orap.findOne(
+          {where: {orap_prod_id:req.params.prod_id}}
+        );
+      return res.send(orap);
     }
     else {
         const orap = await req.context.models.orap.findAll();
@@ -48,6 +48,17 @@ const updateOrap = async (req, res) => {
 
   return res.send(200);
 };
+
+const clickOrap = async (req,res) =>{
+    const {pack_satuan, orap_current_duration, orap_current_amount} = req.body;
+    const orap = await req.context.models.orap.update({
+      orap_current_duration: orap_current_duration - 1,
+      orap_current_amount: orap_current_amount - pack_satuan
+    },{
+      where:{orap_id:req.params.orap_id}
+    })
+}
+
 const deleteOrap = async (req, res) => {
     const result = await req.context.models.orap.destroy({
       where: { orap_id : req.params.orap_id },
@@ -60,5 +71,5 @@ const deleteOrap = async (req, res) => {
 
 // Gunakan export default agar semua function bisa dipakai di file lain.
 export default {
-    findOrap, createOrap, updateOrap, deleteOrap
+    findOrap, createOrap, updateOrap, deleteOrap, clickOrap
 }
