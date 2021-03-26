@@ -14,25 +14,19 @@ const findOrap = async (req,res) => {
 }
 
 const createOrap = async (req,res) =>{
-    const { orap_total_duration, orap_total_amount, orap_current_duration, orap_current_amount, orap_orad_id, orap_prod_id, orad_publish_on, orad_finished_on, orad_bill_amount, orad_watr_numbers, acco_id} = req.body;
-    let orad = undefined
+    const { orap_total_duration, orap_total_amount, orap_current_duration, orap_current_amount,  orap_prod_id} = req.body;
     try {
-      orad = await req.context.models.orad.findOne({where:{orad_acco_id:acco_id}})
-    } catch (error) {
-      return res(error)
-    }
-    // return console.log(orad)
-    if(orad){
       const orap = await req.context.models.orap.create({
-        orap_total_duration: orap_total_duration,
-        orap_total_amount: orap_total_amount,
-        orap_current_duration: orap_current_duration,
-        orap_current_amount: orap_current_amount,
-        orap_orad_id: orad.orad_id,
+        orap_total_duration: Number(orap_total_duration),
+        orap_total_amount: Number(orap_total_amount),
+        orap_current_duration: Number(orap_current_duration),
+        orap_current_amount: Number(orap_current_amount),
+        orap_orad_id: req.params.orap_id,
         orap_prod_id: orap_prod_id
       });
-    
       return res.send(orap);
+    } catch (error) {
+      return res(error)
     }
 }
 const updateOrap = async (req, res) => {
