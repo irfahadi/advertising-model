@@ -12,7 +12,11 @@ const findOrad = async (req,res) => {
         return res.send(orad);
     }
     else {
-        const orad = await req.context.models.orad.findAll();
+        const orad = await req.context.models.orad.findAll({
+          include:{
+            model:req.context.models.orap
+          }
+        });
         return res.send(orad);
     }   
 }
