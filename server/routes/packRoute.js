@@ -5,6 +5,7 @@ import indexCtrl from '../controllers/IndexController'
 
 const router = Router();
 router.get('/', indexCtrl.pack.findPack);
+router.get('/:total_amount/:total_duration', indexCtrl.pack.findPack);
 router.post('/', indexCtrl.pack.createPack);
 router.put('/:pack_name', indexCtrl.pack.updatePack);
 router.delete('/:pack_name', indexCtrl.pack.deletePack);

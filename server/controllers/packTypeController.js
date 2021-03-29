@@ -1,14 +1,17 @@
 const findPack = async (req,res) => {
-    if (req.body.pack_name){
-        const pack = await req.context.models.pack.findByPk(
-            req.body.pack_name,
-          );
-        return res.send(pack);
-    }
-    else {
-        const pack = await req.context.models.pack.findAll();
-        return res.send(pack);
-    }   
+  if (req.params.total_amount && req.params.total_duration) {
+    const pack = await req.context.models.pack.findOne({
+      where: {
+        pack_amount: req.params.total_amount,
+        pack_duration: req.params.total_duration,
+      },
+    });
+    return res.send(pack);
+  }
+  else {
+    const pack = await req.context.models.pack.findAll();
+    return res.send(pack);
+  }   
 }
 
 const createPack = async (req,res) =>{

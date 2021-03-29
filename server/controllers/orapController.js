@@ -1,7 +1,7 @@
 
 // findAll = select * from regions
 const findOrap = async (req,res) => {
-  if (req.params.prod_id){
+    if (req.params.prod_id){
       const orap = await req.context.models.orap.findOne(
           {where: {orap_prod_id:req.params.prod_id}}
         );
@@ -50,13 +50,14 @@ const updateOrap = async (req, res) => {
 };
 
 const clickOrap = async (req,res) =>{
-    const {pack_satuan, orap_current_duration, orap_current_amount} = req.body;
+    const {orap_current_duration, orap_current_amount} = req.body;
     const orap = await req.context.models.orap.update({
-      orap_current_duration: orap_current_duration - 1,
-      orap_current_amount: orap_current_amount - pack_satuan
+      orap_current_duration: orap_current_duration ,
+      orap_current_amount: orap_current_amount 
     },{
       where:{orap_id:req.params.orap_id}
     })
+    return res.send(orap)
 }
 
 const deleteOrap = async (req, res) => {
